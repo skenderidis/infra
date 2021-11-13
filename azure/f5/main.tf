@@ -141,13 +141,13 @@ module "azure_f5" {
   self_ip_mgmt 		  = var.self_ip_mgmt_01
   self_ip_ext 		  = var.self_ip_ext_01
   self_ip_int 		  = var.self_ip_int_01
-  add_ip_ext_1 		  = var.add_ip_ext_01
+  app_ip_01         = var.app_ip_01
   f5_instance_type  = var.f5_instance_type
   f5_version        = var.f5_version
   f5_image_name     = var.f5_image_name
   f5_product_name   = var.f5_product_name
-  f5_password       = var.password
-  f5_username       = var.username
+  password          = var.password
+  username          = var.username
   INIT_URL          = var.init_url
   DO_URL            = var.do_url
   AS3_URL           = var.as3_url
@@ -155,3 +155,6 @@ module "azure_f5" {
   CFE_URL			      = var.cfe_url
   FAST_URL			    = var.fast_url
 }
+
+
+

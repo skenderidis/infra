@@ -3,11 +3,14 @@ output "F5_Mgmt_Public_IP" {
 }
 
 output "App1_Public_IP" {
-  value = azurerm_public_ip.pip_app1.ip_address
+  value = module.azure_f5.app1_public_ip
 }
-output "App2_Public_IP" {
-  value = azurerm_public_ip.pip_app2.ip_address
+
+output "username" {
+  value = var.username
 }
-output "App3_Public_IP" {
-  value = azurerm_public_ip.pip_app3.ip_address
+
+output "password" {
+  value = var.password
 }
+

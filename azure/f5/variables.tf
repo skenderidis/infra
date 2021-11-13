@@ -12,7 +12,7 @@ variable tag 					{default = "k.skenderidis@f5.com"}
 variable username		  		{default = "azureuser"}
 variable password		  		{default = "Kostas123"}
 variable location				{default = "eastus"}
-variable rg_prefix				{default = "KS-BIGIP"}
+variable rg_prefix				{default = "KS-"}
 
 
 ###########   F5  Variables   ############
@@ -30,9 +30,9 @@ variable ext_subnet_cidr  		{default = "10.1.10.0/24" }
 
 variable self_ip_mgmt_01  		{default = "10.1.1.4"}
 variable self_ip_ext_01  		{default = "10.1.10.4"}
-variable add_ip_ext_01_1  		{default = "10.1.10.10"}
+variable app_ip_01        		{default = "10.1.10.10"}
 variable self_ip_int_01  		{default = "10.1.20.4"}
-variable prefix_bigip  			{default = "BIGIP"}
+variable prefix_bigip  			{default = "bigip"}
 
 variable allowedIPs				{default = ["0.0.0.0/0"]}
 

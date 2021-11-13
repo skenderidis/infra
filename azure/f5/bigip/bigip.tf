@@ -83,10 +83,10 @@ resource "azurerm_network_interface" "ext_nic" {
 #    public_ip_address_id          = azurerm_public_ip.public_ip_ext.id
   }
   ip_configuration {
-    name                          = "Add01"
+    name                          = "App01"
     subnet_id                     = var.ext_subnet_id
     private_ip_address_allocation = "Static"
-    private_ip_address			      = var.add_ip_ext_1
+    private_ip_address			      = var.app_ip_01
     public_ip_address_id          = azurerm_public_ip.pip_app1.id
  }
   tags = {
@@ -130,9 +130,9 @@ data "template_file" "bigip_onboard" {
     TS_VER                      = split("/", var.TS_URL)[7]
     CFE_VER                     = split("/", var.CFE_URL)[7]
     FAST_VER                    = split("/", var.FAST_URL)[7]
-    f5_username                 = var.f5_username
-    f5_username                 = var.f5_password
-    hostname                    = azurerm_virtual_machine.bigip.name
+    username                    = var.username
+    password                    = var.password
+    hostname                    = "${var.prefix}-vm-${var.suffix}"
     self-ip-ext                 = var.self_ip_ext
     gateway                     = cidrhost(format("%s/24", var.self_ip_ext), 1)
     self-ip-int                 = var.self_ip_int
@@ -166,9 +166,9 @@ resource "azurerm_virtual_machine" "bigip" {
 
   os_profile {
     computer_name                   = "${var.prefix}-os"
-    admin_username                  = var.f5_username
-    admin_password                  = var.f5_password
-    custom_data                     = data.template_file.f5_bigip_onboard.rendered
+    admin_username                  = var.username
+    admin_password                  = var.password
+    custom_data                     = data.template_file.bigip_onboard.rendered
 
   }
 
@@ -185,33 +185,12 @@ resource "azurerm_virtual_machine" "bigip" {
   tags = {
     owner = var.tag
   }
+
+  depends_on = [
+    azurerm_network_interface_security_group_association.nsg2,
+    azurerm_network_interface_security_group_association.nsg1
+
+  ]
+
 }
-
-
-/*
-# Run Startup Script
-resource "azurerm_virtual_machine_extension" "startup-script" {
-  name                 = "${var.prefix}-run-startup-cmd"
-  depends_on           = [azurerm_virtual_machine.f5-bigip1]
-  virtual_machine_id   = azurerm_virtual_machine.f5-bigip1.id
-  publisher            = "Microsoft.Azure.Extensions"
-  type                 = "CustomScript"
-  type_handler_version = "2.0"
-
-  provisioner "local-exec" {
-    command = "sleep 220"
-  }
-  protected_settings = <<PROT
-  {
-    "script": "${base64encode(data.template_file.f5_bigip_onboard.rendered)}"
-  }
-  PROT
-
-  tags = {
-    owner = var.tag
-  }
-}
-
-*/
-
 
