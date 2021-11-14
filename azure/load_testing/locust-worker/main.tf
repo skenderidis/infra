@@ -3,7 +3,7 @@
 ##############################################
 
 resource "random_string" "suffix" {
-  length  = 3
+  length  = 5
   special = false
 }
 

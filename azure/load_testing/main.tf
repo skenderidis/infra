@@ -14,7 +14,7 @@ resource "azurerm_resource_group" "load_rg_master" {
 }
 
 resource "azurerm_container_group" "master" {
-  name                = "worker"
+  name                = "locust-master"
   location            = azurerm_resource_group.load_rg_master.location
   resource_group_name = azurerm_resource_group.load_rg_master.name
   ip_address_type     = "public"
