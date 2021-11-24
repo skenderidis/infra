@@ -17,22 +17,23 @@ resource "azurerm_container_group" "worker" {
 
   container {
     name   = "locust-worker"
-    image  = "locustio/locust:2.5.0"
+#    image  = "locustio/locust:2.5.0"
+    image  = "skenderidis/locust-hackazon"
     cpu    = "2"
     memory = "2"
     commands = [
         "locust",
         "--locustfile",
-        "/mnt/locust/locust.py",
+        "/mnt/locust/locustfile.py",
         "--worker",
         "--master-host",
         var.master
     ]
-    volume {
-        name = "locust"
-        git_repo { url = "https://github.com/skenderidis/config" }
-        mount_path = "/mnt/locust/"
-    }
+//    volume {
+//        name = "locust"
+//        git_repo { url = "https://github.com/skenderidis/config" }
+//        mount_path = "/mnt/locust/"
+//    }
     ports {
       port     = 8089
       protocol = "TCP"

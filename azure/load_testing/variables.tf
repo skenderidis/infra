@@ -14,8 +14,8 @@ variable location				{default = "eastus"}
 variable tag 					{default = "k.skenderidis@f5.com"}
 
 
-variable count_eastus			{default = 3}
-variable count_westus			{default = 0}
+variable count_eastus			{default = 6}
+variable count_westus			{default = 3}
 variable count_uksouth			{default = 0}
 variable count_eastasia			{default = 0}
 
